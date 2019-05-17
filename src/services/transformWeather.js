@@ -1,7 +1,6 @@
 import convert from "convert-units";
 import {
     FOG,
-    RAIN,
     /*FOG,
     CLOUD,
     CLOUDY,
