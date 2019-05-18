@@ -1,28 +1,18 @@
 import React, {Component} from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {PropTypes} from "prop-types";
 import transformWeather from "./../../services/transformWeather";
-import {api_weather} from "./../../constants/api_url";
 import Location from "./Location";
 import WeatherData from "./../WeatherLocation/WeatherData/index";
 import "./styles.css";
-import {
-    FOG,
-    RAIN,
-    /*FOG,
-    CLOUD,
-    CLOUDY,
-    SUN,
-    RAIN,
-    SNOW,
-    WINDY*/
-} from "./../../constants/weathers";
+import getUrlWeatherByCity from "../../services/getUrlWeatherByCity";
 
 class WeatherLocation extends Component{
-
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        const {city} = props; 
         this.state = {
-            city: "Buenos Aires",
+            city,
             data: null
         }
         console.log("constructor");
@@ -38,6 +28,8 @@ class WeatherLocation extends Component{
     }
 
     handleUpdateClick = () => {
+
+        const api_weather = getUrlWeatherByCity(this.state.city);
         fetch(api_weather).then(resolve =>{
             return resolve.json();
         }).then(data =>{
@@ -49,15 +41,20 @@ class WeatherLocation extends Component{
         });
     }
     render(){
+        const {onWeatherLocationClick} = this.props;
         const {city, data} = this.state;
-        console.log("render");
         return(
-            <div className="weatherLocationCont">
+            <div className="weatherLocationCont" onClick={onWeatherLocationClick}>
                 <Location city={city}></Location>
                 {data ? <WeatherData data={data}></WeatherData> : <CircularProgress size={50}></CircularProgress>}
             </div>
         )
     }
+}
+
+WeatherLocation.propTypes = {
+    city: PropTypes.string.isRequired,
+    onWeatherLocationClick: PropTypes.func,
 }
 
 export default WeatherLocation;
