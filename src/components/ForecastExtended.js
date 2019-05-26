@@ -43,7 +43,6 @@ class ForecastExtended extends Component{
     }
     updateCity = city => {
         const url_forecast = `${url}?q=${city}&appid=${api_key}`;
-        
         fetch(url_forecast).then(
             data => (data.json())
         ).then(
