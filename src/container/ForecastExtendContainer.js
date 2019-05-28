@@ -6,6 +6,7 @@ import { getForecastDataFromCities, getCity } from "./../reducers";
 
 class ForecastExtendContainer extends Component{
     render(){
+        console.log(this.props);
         const { city, forecastData } = this.props;
         return(
             city && 
