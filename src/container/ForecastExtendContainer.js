@@ -6,7 +6,6 @@ import { getForecastDataFromCities, getCity } from "./../reducers";
 
 class ForecastExtendContainer extends Component{
     render(){
-        console.log(this.props);
         const { city, forecastData } = this.props;
         return(
             city && 
@@ -15,9 +14,9 @@ class ForecastExtendContainer extends Component{
     }
 }
 
-ForecastExtendContainer.protoTypes = {
+ForecastExtendContainer.propTypes = {
     city: PropTypes.string.isRequired,
-    forecastData: PropTypes.array
+    forecastData: PropTypes.array,
 }
 const mapStateToProps = state => ({city: getCity(state), forecastData: getForecastDataFromCities(state) })
 export default connect(mapStateToProps, null)(ForecastExtendContainer);

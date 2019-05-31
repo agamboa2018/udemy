@@ -6,7 +6,7 @@ const getTemp = kelvin=> {
 }
 
 const getWeatherState = weather => {
-    const { id } = weather;
+    const { id } = weather[0];
     if(id < 300){
         return THUNDER;
     }else{
@@ -31,9 +31,11 @@ const getWeatherState = weather => {
 }
 
 const transformWeather = weather_data => {
-    const { humidity, temp} = weather_data.main;
+
+    const { weather } = weather_data;
+    const { humidity, temp } = weather_data.main;
     const { speed } = weather_data.wind;
-    const weatherState = getWeatherState(weather_data.weather[0]);
+    const weatherState = getWeatherState(weather);
     const temperature = getTemp(temp);
 
     const data = {
@@ -42,8 +44,8 @@ const transformWeather = weather_data => {
         weatherState,
         wind: `${speed} m/s`,
     }
-
+    console.log("AQUI");
+    console.log(data);
     return data;
 }
-
 export default transformWeather;
